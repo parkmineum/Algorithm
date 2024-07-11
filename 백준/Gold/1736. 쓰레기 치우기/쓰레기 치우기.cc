@@ -20,13 +20,15 @@ void clean(ll x, ll y) {
         }
         return;
     }
-    for (ll i = x; i < n; i++) {
-        for (ll j = y; j < m; j++) {
-            if (room[i][j] == 1) {
-                room[i][j] = 0;
-                trash--;
-                clean(i, j);              
-                return;
+    else{ 
+        for (ll i = x; i < n; i++) {
+            for (ll j = y; j < m; j++) {
+                if (room[i][j] == 1) {
+                    room[i][j] = 0;
+                    trash--;
+                    clean(i, j);              
+                    return;
+                }
             }
         }
     }
@@ -42,12 +44,8 @@ int main() {
             if (room[i][j] == 1) trash++;
         }
     }
-    while (trash > 0) {
+    while (trash) {
         ans++;
-        if (room[0][0] == 1) {
-            room[0][0] = 0;
-            trash--;
-        }
         clean(0, 0);
     }
     cout << ans;
