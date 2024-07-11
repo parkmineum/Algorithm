@@ -7,46 +7,38 @@
 #include <deque> 
 using namespace std; 
 
-using ll = long long;
+int arr[110][110]; 
+int  n,m,trash = 0; 
 
-ll n, m, trash = 0, ans = 0;
-ll room[100][100];
+void cleaning(int x, int y){
+    for(int i=x; i<n; i++){
+        for(int j=y; j<m; j++){  // 열 단위로 검사 
+            if(arr[i][j]==1){
+                arr[i][j]=0;   
+                trash--;
 
-void clean(ll x, ll y) {
-    if (x == n - 1 && y == m - 1) {
-        if (room[x][y] == 1) {
-            trash--;
-            room[x][y] = 0;        
-        }
-        return;
-    }
-    else{ 
-        for (ll i = x; i < n; i++) {
-            for (ll j = y; j < m; j++) {
-                if (room[i][j] == 1) {
-                    room[i][j] = 0;
-                    trash--;
-                    clean(i, j);              
-                    return;
-                }
+                if(!trash)  return;   // 더 이상 쓰레기가 없다면
+                else cleaning(i,j);   // 쓰레기가 남아있다면
+                return; 
             }
         }
     }
-    return;
+    return; 
 }
 
-int main() {
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    cin >> n >> m;
-    for (ll i = 0; i < n; i++) {
-        for (ll j = 0; j < m; j++) { 
-            cin >> room[i][j];
-            if (room[i][j] == 1) trash++;
+int main(){
+    cin >> n >> m; 
+    for(int i=0; i<n; i++){
+        for(int j=0; j<m; j++){
+            cin >> arr[i][j]; 
+            if(arr[i][j]==1)  trash++; 
         }
     }
-    while (trash) {
-        ans++;
-        clean(0, 0);
+
+    int robot = 0; 
+    while(trash){ 
+        robot++; 
+        cleaning(0,0); 
     }
-    cout << ans;
+    cout << robot; 
 }
