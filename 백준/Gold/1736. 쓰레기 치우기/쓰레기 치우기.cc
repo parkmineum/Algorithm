@@ -16,9 +16,8 @@ void cleaning(int x, int y){
             if(arr[i][j]==1){
                 arr[i][j]=0;   
                 trash--;
-
-                if(!trash)  return;   // 더 이상 쓰레기가 없다면
-                else cleaning(i,j);   // 쓰레기가 남아있다면
+ 
+                cleaning(i,j);  
                 return; 
             }
         }
