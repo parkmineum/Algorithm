@@ -20,9 +20,9 @@ public class Main {
         visited = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
-            String s = br.readLine();
+            String s = br.readLine();    // 행 전체를 문자열로 받음
             for (int j = 0; j < m; j++) {
-                map[i][j] = s.charAt(j) - '0';
+                map[i][j] = s.charAt(j) - '0';    // 문자 => 정수
             }
         }
 
@@ -47,9 +47,9 @@ public class Main {
                 if (nX < 0 || nY < 0 || nX >= n || nY >= m) continue;
                 if (visited[nX][nY] || map[nX][nY] == 0) continue;
 
-                q.add(new int[]{nX, nY});
                 map[nX][nY] = map[x][y] + 1;
                 visited[nX][nY] = true;
+                q.add(new int[]{nX, nY});
             }
         }
     }
