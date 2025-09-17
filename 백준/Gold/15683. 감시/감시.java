@@ -15,18 +15,18 @@ public class Main {
     static int N, M;
     static int min = Integer.MAX_VALUE;
 
-    // 상, 우, 하, 좌
-    static int[] dx = {-1, 0, 1, 0};
-    static int[] dy = {0, 1, 0, -1};
+    // 상, 하, 좌, 우
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1};
 
-    // CCTV별 방향 경우의 수 정의
+    // CCTV 별 방향 경우의 수 정의 (상=0, 하=1, 좌=2, 우=3)
     static int[][][] dir = {
-        {}, // 0번 없음
+        {},                                         // 0번 없음
         {{0}, {1}, {2}, {3}},                       // 1번 CCTV
-        {{0, 2}, {1, 3}},                           // 2번 CCTV
-        {{0, 1}, {1, 2}, {2, 3}, {3, 0}},           // 3번 CCTV
-        {{0, 1, 2}, {1, 2, 3}, {2, 3, 0}, {3, 0, 1}}, // 4번 CCTV
-        {{0, 1, 2, 3}}                              // 5번 CCTV
+        {{0, 1}, {2, 3}},                           // 2번 CCTV (상+하, 좌+우)
+        {{0, 3}, {3, 1}, {1, 2}, {2, 0}},           // 3번 CCTV (상+우, 우+하, 하+좌, 좌+상)
+        {{0, 2, 3}, {0, 1, 3}, {1, 2, 3}, {0, 1, 2}}, // 4번 CCTV (세 방향)
+        {{0, 1, 2, 3}}                              // 5번 CCTV (네 방향)
     };
 
     public static void main(String[] args) throws Exception {
@@ -76,8 +76,8 @@ public class Main {
             nx += dx[d];
             ny += dy[d];
             if(nx < 0 || nx >= N || ny < 0 || ny >= M) break;
-            if(map[nx][ny] == 6) break;
-            if(map[nx][ny] == 0) map[nx][ny] = -1;
+            if(map[nx][ny] == 6) break; // 벽
+            if(map[nx][ny] == 0) map[nx][ny] = -1; // 감시 가능
         }
     }
 
